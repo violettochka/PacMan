@@ -18,20 +18,17 @@ namespace PacMan.Models
         }
 
         public Direction InitialDirection = Direction.Right;
-
-
         public int CountCoins { get; private set; }
 
         public void Move(Direction direction)
         {
-            if (TakeCoin(this))
-            {
-                CountCoins++;
-            }
+            TakeCoin(this);
+            TakeHelper(this);
+
 
             if (BeatByCast(this))
             {
-                GameSettings.Gameover(this);
+                GameCondition.Gameover(this);
             }
 
             switch (direction) 
@@ -56,15 +53,27 @@ namespace PacMan.Models
             Draw(X, Y);
         }
 
-        private bool TakeCoin(Pixel pacman)
+        private void TakeCoin(Pixel pacman)
         {
 
             if(Coins.coins.Any(coin => coin.X == pacman.X && coin.Y == pacman.Y))
             {
-                return true;
+                CountCoins++;
             }
+            return;
+        }
 
-            return false;
+        public void TakeHelper(Pixel pacman)
+        {
+            var help = Helper.helpers.FirstOrDefault(helper => helper.X == pacman.X && helper.Y == pacman.Y);
+            if (help != null) 
+            {
+                var removeCast = Cast.casts.First();
+                Cast.casts.Remove(removeCast);
+                removeCast.Clear(removeCast.X, removeCast.Y);
+                Helper.helpers.Remove(help);
+            }
+            return;
         }
 
         public bool BeatByCast(Pixel pacman)

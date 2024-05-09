@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,13 @@ namespace PacMan.Models
         public virtual void Draw(int x, int y)
         {
             Console.ForegroundColor = Color;
+            Console.SetCursorPosition(x, y);
+            Console.Write(PIXELCHAR);
+        }
+
+        public virtual void Draw(int x, int y, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
             Console.SetCursorPosition(x, y);
             Console.Write(PIXELCHAR);
         }

@@ -47,7 +47,10 @@ namespace PacMan.Models
             if (nextX >= ConsoleSettings.CONSOLEWIDTH - 1 ||
                nextY >= ConsoleSettings.CONSOLEHEIGTH - 1||
                nextX <= 0 || nextY <= 0 ||
-               Wall.walls.Any(w => w.wallelems.Any(el => el.X == nextX && el.Y == nextY)))
+               Wall.walls.Any(w => w.wallelems.Any(el => el.X == nextX && el.Y == nextY)) ||
+               Coins.coins.Any(coin => coin.X == nextX && coin.Y == nextY) ||
+               Helper.helpers.Any(helper => helper.X ==  nextX && helper.Y == nextY))
+
             {
                 return false; 
             }

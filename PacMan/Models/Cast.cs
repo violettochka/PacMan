@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PacMan.enums;
 using PacMan.interfaces;
+using PacMan.settings;
 using static System.Console;
 using static System.Net.Mime.MediaTypeNames;
 

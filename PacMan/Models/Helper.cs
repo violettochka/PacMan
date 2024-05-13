@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PacMan.settings;
 
 namespace PacMan.Models
 {
@@ -22,11 +23,13 @@ namespace PacMan.Models
         {
             for(int i = 0; i < countHelpers; i++)
             {
-                var randomX = Random.Next(1, ConsoleSettings.CONSOLEWIDTH - 1);
-                var randomY = Random.Next(1, ConsoleSettings.CONSOLEHEIGTH - 1);
+                int randomX;
+                int randomY;
                 Helper helper;
                 do
                 {
+                    randomX = Random.Next(1, ConsoleSettings.CONSOLEWIDTH - 1);
+                    randomY = Random.Next(1, ConsoleSettings.CONSOLEHEIGTH - 1);
                     helper = new Helper(randomX, randomY, HELPERCOLOR);
                 } 
                 while (Wall.walls.Any(w => w.wallelems.Any(el => el.X == randomX && el.Y == randomY)) ||

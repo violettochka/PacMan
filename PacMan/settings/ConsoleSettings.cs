@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using PacMan.Models;
 using static System.Console;
 
-namespace PacMan
+namespace PacMan.settings
 {
     public static class ConsoleSettings
     {
@@ -15,19 +15,19 @@ namespace PacMan
 
         public static void ChangeSizeBorder()
         {
-            Console.CursorVisible = false;
-            // size of console
+            CursorVisible = false;
+            //розмір консолі
             SetWindowSize(CONSOLEWIDTH, CONSOLEHEIGTH);
-            //SetBufferSize(CONSOLEWIDTH, CONSOLEHEIGTH);
-            //border of width
+
+            //стіни по горизонталі
             for (int i = 0; i < CONSOLEWIDTH; i++)
             {
                 new Pixel(i, 0, ConsoleColor.Red).Draw(i, 0);
                 new Pixel(i, CONSOLEHEIGTH - 1, ConsoleColor.Red).Draw(i, CONSOLEHEIGTH - 1);
             }
 
-            //border of heigth
-            for(int i = 0; i < CONSOLEHEIGTH - 1; i++)
+            //стіни по вєртікалі
+            for (int i = 0; i < CONSOLEHEIGTH - 1; i++)
             {
                 new Pixel(0, i, ConsoleColor.Red).Draw(0, i);
                 new Pixel(CONSOLEWIDTH - 1, i, ConsoleColor.Red).Draw(CONSOLEWIDTH - 1, i);

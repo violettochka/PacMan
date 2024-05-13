@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PacMan.enums;
 using PacMan.interfaces;
+using PacMan.settings;
 using static System.Console;
 
 namespace PacMan.Models
@@ -55,10 +56,12 @@ namespace PacMan.Models
 
         private void TakeCoin(Pixel pacman)
         {
-
-            if(Coins.coins.Any(coin => coin.X == pacman.X && coin.Y == pacman.Y))
+            var removecoin = Coins.coins.FirstOrDefault(coin => coin.X == pacman.X && coin.Y == pacman.Y);
+            if (removecoin != null)
             {
                 CountCoins++;
+                Coins.coins.Remove(removecoin);
+                removecoin.Clear(removecoin.X, removecoin.Y);
             }
             return;
         }

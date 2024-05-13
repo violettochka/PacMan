@@ -5,20 +5,20 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PacMan
+namespace PacMan.settings
 {
     public class EntitiesSettings
     {
-        public ConsoleColor ColorForPacman(string color) 
+        public ConsoleColor ColorForPacman(string color)
         {
             var availibleColors = new Dictionary<string, ConsoleColor>()
             {
                 { "white" , ConsoleColor.White},
-                { "green" , ConsoleColor.Green}, 
+                { "green" , ConsoleColor.Green},
                 { "blue" , ConsoleColor.Cyan},
             };
 
-            if(availibleColors.TryGetValue(color, out var matchColor))
+            if (availibleColors.TryGetValue(color, out var matchColor))
             {
                 return matchColor;
             }

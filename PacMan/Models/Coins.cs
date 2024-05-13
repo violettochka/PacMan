@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PacMan.settings;
 using static System.Console;
 
 namespace PacMan.Models
@@ -16,11 +17,12 @@ namespace PacMan.Models
         private const ConsoleColor COINTCOLOR = ConsoleColor.Yellow;
 
         public readonly static List<Coins> coins = new List<Coins>();
+        public static int CountCoins;
 
 
         public void CreateandDrawCoins()
         {
-            for(int i= 0; i < Random.Next(80, 100); i++)
+            for(int i= 0; i < Random.Next(50, 70); i++)
             {
                 var randomX = Random.Next(1, ConsoleSettings.CONSOLEWIDTH - 1);
                 var randomY = Random.Next(1, ConsoleSettings.CONSOLEHEIGTH - 1);
@@ -34,6 +36,7 @@ namespace PacMan.Models
                     coins.Add(coin);
                     Draw(coin.X, coin.Y);
                 }
+                CountCoins = coins.Count;
             }
         }
     }

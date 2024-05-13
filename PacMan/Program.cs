@@ -1,4 +1,5 @@
 ﻿using PacMan.Models;
+using PacMan.settings;
 
 namespace PacMan
 {
@@ -8,20 +9,20 @@ namespace PacMan
         {
             //Налаштування, які нравець може вибрати перед початком гри:
             //1. Колір гравця
-            Console.WriteLine("Перед початком гри виберіть бажаний колір гравця(white, blue, green)");
-            Console.WriteLine("За замовчуванням колір гравця буде вибрано автоматично");
+            Console.WriteLine("Before starting the game, select the desired color of the player(white, blue, green)");
+            Console.WriteLine("By default, the player's color will be selected automatically");
             var pacmanColor = Console.ReadLine();
             Console.Clear();
 
             //2. Складність гри
-            Console.WriteLine("Tакож необхідно вибрати складність гри." +
-                              " Напишіть бажаний рівень гри(цифра від 1 до 5)");
+            Console.WriteLine("It is also necessary to choose the difficulty of the game." +
+                              " Write the desired level of the game (a number from 3 to 5)");
             var input = Console.ReadLine();
             var isValid = int.TryParse(input, out var number);
             if (!isValid)
             {
-                Console.WriteLine("Будь-ласка введіть саме число або рівень" +
-                                  "складності буде вибрана автоматично");
+                Console.WriteLine("Please enter the exact number or level" +
+                                  "difficulty will be selected automatically");
             }
 
             //Створення мапи
@@ -34,7 +35,7 @@ namespace PacMan
             new Coins(0, 0, ConsoleColor.Yellow).CreateandDrawCoins();
 
             //створення енерджайзера
-            new Helper(0, 0, ConsoleColor.Green).CreateHelpers(4);
+            new Helper(0, 0, ConsoleColor.Green).CreateHelpers(2);
 
             //створення пакмена
             var pacmanSettings = new EntitiesSettings();
@@ -43,23 +44,33 @@ namespace PacMan
             //створення примар
             Cast.CreateCasts(number);
 
-            //
+            //основний цикл гри
             while (GameCondition.GameContinue)
             {
                 if (!GameCondition.GameContinueBorder(pacman))
                 {
+                    GameCondition.Gameover(pacman);
                     GameCondition.GameContinue = false;
                     break;
 
                 }
                 if (!GameCondition.GameContinueWall(pacman))
                 {
+                    GameCondition.Gameover(pacman);
                     GameCondition.GameContinue = false;
                     break;
                 }
 
                 if (pacman.BeatByCast(pacman))
                 {
+                    GameCondition.Gameover(pacman);
+                    GameCondition.GameContinue = false;
+                    break;
+                }
+
+                if(Coins.CountCoins == pacman.CountCoins)
+                {
+                    GameCondition.GameWin(pacman);
                     GameCondition.GameContinue = false;
                     break;
                 }
@@ -67,6 +78,8 @@ namespace PacMan
                 pacman.InitialDirection = pacman.ReadMovement(pacman.InitialDirection);
                 pacman.Move(pacman.InitialDirection);
                 Thread.Sleep(100);
+
+
             }
         }
     }

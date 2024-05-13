@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PacMan.Models;
 
-namespace PacMan
+namespace PacMan.settings
 {
     public static class GameCondition
     {
@@ -22,21 +22,27 @@ namespace PacMan
 
             Console.WriteLine();
 
-            Console.SetCursorPosition(centerX - ("For quitting write 'quit'".Length) / 2, Console.CursorTop + 1);
-            Console.WriteLine("For quitting write 'quit'");
-            string newGame = Console.ReadLine();
-            if(newGame == "again")
-            {
-                GameContinue = true;
-            }
         }
+
+        public static void GameWin(Pacman pacman)
+        {
+            Console.Clear();
+
+            int centerX = Console.WindowWidth / 2;
+            int centerY = Console.WindowHeight / 2;
+            Console.SetCursorPosition(centerX - ("gameOver, your points: ".Length + pacman.CountCoins.ToString().Length) / 2, centerY);
+            Console.Write($"You won, your points: {pacman.CountCoins}");
+
+            Console.WriteLine();
+
+        }
+
         public static bool GameContinueBorder(Pacman pacman)
         {
             if (pacman.X == ConsoleSettings.CONSOLEWIDTH - 1 ||
                pacman.Y == ConsoleSettings.CONSOLEHEIGTH - 1 ||
                pacman.X == 0 || pacman.Y == 0)
             {
-                Gameover(pacman);
                 return false;
             }
             return true;
@@ -45,11 +51,10 @@ namespace PacMan
         public static bool GameContinueWall(Pacman pacman)
         {
             var walls = Wall.walls;
-            foreach ( var wall in walls )
+            foreach (var wall in walls)
             {
-                if(wall.wallelems.Any(elem => elem.X == pacman.X &&  elem.Y == pacman.Y))
+                if (wall.wallelems.Any(elem => elem.X == pacman.X && elem.Y == pacman.Y))
                 {
-                    Gameover(pacman);
                     return false;
                 }
             }
